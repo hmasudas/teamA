@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <hl>Flask チュートリアル</hl>
+    {% for user in users %}
+        <p>名前: {{user.name}}</p>
+    {% endfor %}
+{% endblock %}
