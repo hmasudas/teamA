@@ -36,7 +36,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-  return render_template('index.html')
+  return render_template('index2.html')
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
