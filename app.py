@@ -1,6 +1,5 @@
 from oseti import oseti
 from flask import Flask, render_template, url_for, request, redirect
-from assets.database import db_session
 
 #スコアの取得
 def getScore(list):
