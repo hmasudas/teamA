@@ -58,7 +58,7 @@ def post():
 @app.route('/profile', methods=['GET'])
 def profile():
         # nameとtitleをindex.htmlに変数展開
-        return render_template('profile.html',title='プロフィール')
+        return render_template('profile1.html',title='プロフィール')
 
 @app.route('/index2', methods=['GET'])
 def index2():
