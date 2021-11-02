@@ -1,0 +1,43 @@
+.btn-flat-border {
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color: #BDD7EE;
+  border: solid 2px #BDD7EE;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.btn-flat-border:hover {
+  background: #BDD7EE;
+  color: white;
+}
+
+.container-fluid {
+  max-width: 500px;
+  margin-top: 200px;
+}
+
+.container-fluid img{
+  width: 10em;
+  margin-bottom:25px;
+}
+
+.right{
+  text-align: right;
+  color: #BDD7EE;
+}
+
+body * p{
+  font-size: 17px;
+}
+
+.gray{
+  color: #B7B7B7;
+}
+
+.bo{
+  border-bottom: 1px solid #BDD7EE;
+}
+
+
