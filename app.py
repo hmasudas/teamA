@@ -57,12 +57,15 @@ def post():
 
 @app.route('/profile', methods=['GET'])
 def profile():
-        # nameとtitleをindex.htmlに変数展開
-        return render_template('profile1.html',title='プロフィール')
+        return render_template('profile1.html')
+
+@app.route('/profile', methods=['GET'])
+def profile2():
+        return render_template('profile2.html')
 
 @app.route('/index2', methods=['GET'])
 def index2():
-        return render_template('index2.html',title='DB確認')
+        return render_template('index2.html')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug=True)
