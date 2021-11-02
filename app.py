@@ -59,7 +59,7 @@ def post():
 def profile():
         return render_template('profile1.html')
 
-@app.route('/profile', methods=['GET'])
+@app.route('/profile2', methods=['GET'])
 def profile2():
         return render_template('profile2.html')
 
