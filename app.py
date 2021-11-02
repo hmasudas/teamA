@@ -60,5 +60,9 @@ def profile():
         # nameとtitleをindex.htmlに変数展開
         return render_template('profile.html',title='プロフィール')
 
+@app.route('/index2', methods=['GET'])
+def index2():
+        return render_template('index2.html',title='DB確認')
+
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug=True)

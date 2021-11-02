@@ -4,13 +4,13 @@
 from flask import Flask,render_template
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker 
-from models import User
+from member import User
 
 app = Flask(__name__)
 
 # test.db (DB) と連結するための object である engine を作り、DB を session に代入する。
 engine = create_engine('sqlite:///test.db')
-session = sessionmaker(bind=engine)()
+session = sessionmaker(autocommit=False, autoflush=False,bind=engine)()
 
 # /index2 へアクセスがあった場合に、 index2.html を返す。
 @app.route("/index2")

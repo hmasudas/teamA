@@ -2,7 +2,10 @@
 
 {% block body %}
     <hl>Flask チュートリアル</hl>
-    {% for user in users %}
-        <p>名前: {{user.name}}</p>
-    {% endfor %}
+{% for user in users %}
+    <p>id: {{user.id}}</p>
+    <p>名前: {{user.name}}</p>
+    <p>年齢：{{user.users}}</p>
+
+{% endfor %}
 {% endblock %}
