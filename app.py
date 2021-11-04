@@ -55,6 +55,10 @@ def post():
         # nameとtitleをindex.htmlに変数展開
         return render_template('index.html',name=name)
 
+@app.route('/login', methods=['GET'])
+def login():
+        return render_template('login.html')
+
 @app.route('/profile', methods=['GET'])
 def profile():
         return render_template('profile1.html')

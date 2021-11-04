@@ -1,0 +1,62 @@
+.cp_iptxt {
+	position: relative;
+	width:230px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center;
+}
+.cp_iptxt input[type='text'] {
+	font: 15px/24px sans-serif;
+	box-sizing: border-box;
+	width:230px;
+	padding: 0.3em;
+	transition: 0.3s;
+	letter-spacing: 1px;
+	color: #FFFFFF;
+	border: none;
+	border-bottom: 2px solid #FFFFFF;
+	background: transparent;
+	
+}
+.ef input[type='text']:focus {
+	border-bottom: 2px solid #FFFFFF;
+	outline: none;
+}
+
+::placeholder {
+  color: #FFFFFF;
+}
+
+.btn-flat-border {
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color: #FFFFFF;
+  border: solid 2px #FFFFFF;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.btn-flat-border:hover {
+  background: #87BCEB;
+  color: white;
+}
+
+.container-fluid {
+  max-width: 100%;
+  margin-top: 170px;
+}
+
+.container-fluid img{
+  width: 10em;
+  margin-bottom:25px;
+}
+
+body * p{
+  font-size: 17px;
+}
+
+*{
+  background-color:#BDD7EE;
+}
+
