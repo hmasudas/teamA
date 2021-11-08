@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <hl>Flask チュートリアル</hl>
+    <form action="/DBINFO" method="post">
+        
+        <input type="text" name="yourname">
+        <input type="text" name="age">
+        <input type="submit" value="送信">
+
+    </form>
+{% for FLASKDB in flask_table %}
+    <p>id: {{FLASKDB.ID}}</p>
+    <p>名前: {{FLASKDB.YOURNAME}}</p>
+    <p>年齢：{{FLASKDB.AGE}}</p>
+
+{% endfor %}
+{% endblock %}
