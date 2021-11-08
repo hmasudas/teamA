@@ -70,6 +70,9 @@ def profile2():
 @app.route('/index2', methods=['GET'])
 def index2():
         return render_template('index2.html')
+@app.route('/ranking', methods=['GET'])
+def ranking():
+        return render_template('ranking.html')
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug=True)
