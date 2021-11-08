@@ -1,22 +1,19 @@
 from oseti import oseti
 from flask import Flask, render_template, url_for, request, redirect
+import run  
 
 #スコアの取得
 def getScore(list):
-
   positive = 0
   negative = 0
-
   #リストないの感情を計算
   for i in list:
     positive += i["positive"]
     negative += i["negative"]
-
   #スコアの計算
   score = -1
   if positive+negative > 0:
     score = positive/(positive+negative)
-
   #判定
   result = ""
   if score == -1:
@@ -25,7 +22,6 @@ def getScore(list):
     result = "ネガティブ"
   else:
     result = "ポジティブ"
-
   return result
 
 def getAnalyzer(txt):
@@ -68,8 +64,28 @@ def profile2():
         return render_template('profile2.html')
 
 @app.route('/index2', methods=['GET'])
-def index2():
+def db_check():
         return render_template('index2.html')
+
+@app.route('/DBINFO', methods=['POST', 'GET'])
+def bokinbox():
+    if request.method == 'POST':
+        yourname = request.form['yourname']
+        age = request.form['age']
+        flask = run.FLASKDB(YOURNAME=yourname, AGE=age)
+        run.db.session.add(flask)
+        run.db.session.commit()
+        run.db.session.close()
+        FLASKDB_infos = run.db.session.query(
+            run.FLASKDB.ID, run.FLASKDB.YOURNAME, run.FLASKDB.AGE).all()
+        return render_template('db_info.html', FLASKDB_infos=FLASKDB_infos)
+
+# 127.0.0.1/DBINFO:5000に遷移したときの処理
+@app.route('/search', methods=['GET'])
+def search():
+        user = run.db.session.query(run.FLASKDB.YOURNAME).filter(run.FLASKDB.AGE == 20).all()
+
+        return render_template('search.html', user=user)
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug=True)
