@@ -66,6 +66,9 @@ def profile2():
 @app.route('/index2', methods=['GET'])
 def db_check():
         return render_template('index2.html')
+@app.route('/ranking', methods=['GET'])
+def ranking():
+        return render_template('ranking.html')
 
 @app.route('/DBINFO', methods=['POST', 'GET'])
 def bokinbox():

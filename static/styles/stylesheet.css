@@ -1,0 +1,157 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+#header-fixed{
+    position: fixed;            /* ヘッダーの固定 */
+    top: 0px;                   /* 位置(上0px) */
+    left: 0px;                  /* 位置(右0px) */
+    width:100vw;
+    z-index:10;
+}
+
+/* ヘッダーCSS - start */
+header{
+    width:100%;
+    height:83px;
+    background-color: #BDD7EE;
+    position: relative;
+}
+
+
+.tellepos_icon{
+    width:30%;
+    position: absolute;
+    top: 50%;
+    left: 51%;
+    -webkit-transform : translate(-50%,-50%);
+    transform : translate(-50%,-50%);
+}
+
+.user_icon{
+    width:10%;
+    position: absolute;
+    top: 50%;
+    left: 18%;
+    -webkit-transform : translate(-50%,-50%);
+    transform : translate(-50%,-50%);
+}
+/* ヘッダーCSS - end */
+
+
+/* フッターCSS - start */
+#footer-fixed{
+    position: fixed;            /* フッターの固定 */
+    bottom: 0px;                /* 位置(下0px) */
+    left: 0px;                  /* 位置(左0px) */
+    width: 100vw;                /* 横幅100%*/
+}
+
+footer{
+    height:83px;
+    background-color: #BDD7EE;
+    display: flex;
+    justify-content: center; /*左右中央揃え*/
+    align-items: center;     /*上下中央揃え*/
+}
+
+.footer-ul{
+    width:78%;
+    margin:0 auto;
+}
+
+.foot-icon{
+    display:inline-block;
+    width:17%;
+    height:40%;
+    margin:0 3%;
+    padding: 7px 0;
+    border-radius:0.5em;
+    text-align:center;
+    vertical-align: middle;
+    color:#fff;
+    cursor:pointer;
+}
+
+
+.size{
+    margin-top:5px;
+    font-size:1.5em; /*1.5倍にする*/
+}
+
+.tap{
+    /* heartAnimationアニメーションを実行する */
+    animation: heartAnimation .2s;
+    color: #87BCEB;
+}
+
+.bg-color{
+    background-color:#fff;
+}
+
+/* アイコン押下時アニメーション */
+@keyframes heartAnimation {
+    0% {
+        /* アイコンサイズをもとのより小さくする */
+        transform: scale(0.5);
+    }
+    10% {
+        transform: scale(0.7);
+    }
+    30% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    80% {
+        transform: scale(1.5);
+    }
+    100% {
+        /* もとのサイズに戻す */
+        transform: scale(1.0);
+    }
+}
+/* フッターCSS - end */
+
+/* 投稿ボタンCSS - start */
+#post-btn{
+    width:77px;
+    height:77px;
+    border-radius:50%;
+    background-color: #BDD7EE;
+    position:relative;
+    cursor:pointer;
+}
+
+#post-circle{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background-color: #87BCEB;
+    position:absolute;
+    top: 49%;
+    left: 49%;
+    -webkit-transform : translate(-50%,-50%);
+    transform : translate(-50%,-50%);
+    z-index:3;
+    transition: 0.1s ease-out;
+}
+
+#post-btn:hover #post-circle{
+    transform: scale(13);
+    transition: 0.3s ease-out;
+}
+
+#post-img{
+    width:43px;
+    position:absolute;
+    top: 52%;
+    left: 50%;
+    -webkit-transform : translate(-50%,-50%);
+    transform : translate(-50%,-50%);
+    z-index:5;
+}
+/* 投稿ボタンCSS - end */
