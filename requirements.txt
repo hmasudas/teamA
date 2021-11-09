@@ -7,4 +7,4 @@ PyMySQL==0.10.1
 SQLAlchemy==1.4.25
 Flask-SQLAlchemy==2.5.1
 numpy==1.20.2
-opencv-python-headless==4.2.0.32
+opencv-python==4.5.2.52
