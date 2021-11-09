@@ -1,6 +1,8 @@
 from oseti import oseti
 from flask import Flask, render_template, url_for, request, redirect
-
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import *
+from struct import *
 #スコアの取得
 def getScore(list):
 
@@ -33,6 +35,48 @@ def getAnalyzer(txt):
     return analyzer.count_polarity(txt)
 
 app = Flask(__name__)
+
+# Flaskの立ち上げ
+app.config['SECRET_KEY'] = 'secret key'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask.sqlite'  # DBへのパス
+
+# SQLAlchemyでデータベース定義
+
+db = SQLAlchemy(app)
+
+# SQLiteのDBテーブル情報
+class FLASKDB(db.Model):
+    __tablename__ = 'flask_table'
+
+    ID = db.Column(Integer, primary_key=True)
+    YOURNAME = db.Column(String(32))
+    AGE = db.Column(Integer)
+    my_blob = db.Column(BLOB)
+# DBの作成
+db.create_all()
+    
+
+# 127.0.0.1/DBINFO:5000に遷移したときの処理
+@app.route('/DBINFO', methods=['POST', 'GET'])
+def bokinbox():
+    if request.method == 'POST':
+        yourname = request.form['yourname']
+        age = request.form['age']
+        flask = FLASKDB(YOURNAME=yourname, AGE=age,my_blob=pack('H', 365))
+        db.session.add(flask)
+        db.session.commit()
+        db.session.close()
+        FLASKDB_infos = db.session.query(
+            FLASKDB.ID, FLASKDB.YOURNAME, FLASKDB.AGE,FLASKDB.my_blob).all()
+        return render_template('db_info.html', FLASKDB_infos=FLASKDB_infos)
+
+# 127.0.0.1/DBINFO:5000に遷移したときの処理
+@app.route('/search', methods=['GET'])
+def search():
+        user = db.session.query(FLASKDB.YOURNAME).filter(FLASKDB.AGE == 20).all()
+
+        return render_template('search.html', user=user)
+
 
 @app.route('/', methods=['GET'])
 def index():
