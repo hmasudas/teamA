@@ -3,6 +3,12 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import *
 from struct import *
+import cv2
+from datetime import datetime
+import os
+import string
+import random
+import numpy as np
 #スコアの取得
 def getScore(list):
 
@@ -57,6 +63,7 @@ class FLASKDB(db.Model):
 # DBの作成
 db.create_all()
     
+SAVE_DIR = "static/images"
 
 # 127.0.0.1/DBINFO:5000に遷移したときの処理
 @app.route('/DBINFO', methods=['POST', 'GET'])
@@ -119,6 +126,26 @@ def index2():
 @app.route('/ranking', methods=['GET'])
 def ranking():
         return render_template('ranking.html')
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    if request.files['image']:
+        # 画像として読み込み
+        stream = request.files['image'].stream
+        img_array = np.asarray(bytearray(stream.read()), dtype=np.uint8)
+        #img = cv2.imdecode(img_array, 1)
+
+        # 変換
+        #img = cv2.Canny(img, 100, 200)
+
+        # 保存
+        '''
+        dt_now = datetime.now().strftime("%Y_%m_%d%_H_%M_%S_") + random_str(5)
+        save_path = os.path.join(SAVE_DIR, dt_now + ".png")
+        cv2.imwrite(save_path, img)
+        '''
+
+        return render_template('image_test.html',name=img_array)
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug=True)
