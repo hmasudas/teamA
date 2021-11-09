@@ -1,7 +1,8 @@
 from oseti import oseti
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import *
+from struct import *
 #スコアの取得
 def getScore(list):
 
@@ -50,7 +51,7 @@ class FLASKDB(db.Model):
     ID = db.Column(Integer, primary_key=True)
     YOURNAME = db.Column(String(32))
     AGE = db.Column(Integer)
-
+    my_blob = Column(BLOB)
 # DBの作成
 db.create_all()
     
@@ -61,12 +62,12 @@ def bokinbox():
     if request.method == 'POST':
         yourname = request.form['yourname']
         age = request.form['age']
-        flask = FLASKDB(YOURNAME=yourname, AGE=age)
+        flask = FLASKDB(YOURNAME=yourname, AGE=age,my_blob=pack('H', 365))
         db.session.add(flask)
         db.session.commit()
         db.session.close()
         FLASKDB_infos = db.session.query(
-            FLASKDB.ID, FLASKDB.YOURNAME, FLASKDB.AGE).all()
+            FLASKDB.ID, FLASKDB.YOURNAME, FLASKDB.AGE,FLASKDB.my_blob).all()
         return render_template('db_info.html', FLASKDB_infos=FLASKDB_infos)
 
 # 127.0.0.1/DBINFO:5000に遷移したときの処理
