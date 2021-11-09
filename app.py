@@ -51,7 +51,7 @@ class FLASKDB(db.Model):
     ID = db.Column(Integer, primary_key=True)
     YOURNAME = db.Column(String(32))
     AGE = db.Column(Integer)
-    my_blob = Column(BLOB)
+    my_blob = db.Column(BLOB)
 # DBの作成
 db.create_all()
     
