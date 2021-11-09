@@ -4,10 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import *
 from struct import *
 import cv2
-from datetime import datetime
-import os
-import string
-import random
 import numpy as np
 #スコアの取得
 def getScore(list):
@@ -129,20 +125,6 @@ def ranking():
 @app.route('/upload', methods=['POST'])
 def upload():
     if request.files['image']:
-        # 画像として読み込み
-        stream = request.files['image'].stream
-        img_array = np.asarray(bytearray(stream.read()), dtype=np.uint8)
-        #img = cv2.imdecode(img_array, 1)
-
-        # 変換
-        #img = cv2.Canny(img, 100, 200)
-
-        # 保存
-        '''
-        dt_now = datetime.now().strftime("%Y_%m_%d%_H_%M_%S_") + random_str(5)
-        save_path = os.path.join(SAVE_DIR, dt_now + ".png")
-        cv2.imwrite(save_path, img)
-        '''
 
         return render_template('image_test.html')
 
