@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Flask</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-  </head>
+</head>
 
-  <body>
+<body>
     <form action="/DBINFO" method="post">
-    <center>
-    <input class="form" type="text" name="yourname" placeholder="あなたの名前" required>
-    <br>
-    <input class="form" type="number" name="age" placeholder="年齢" required>
-    <br>
-    <input class="form" type="file" name="img" placeholder="画像ファイルを選んでね">
-    <br>
-    <button type="submit">送信</button>
-    </center>
+        <center>
+            <input class="form" type="text" name="yourname" placeholder="あなたの名前" required>
+            <br>
+            <input class="form" type="number" name="age" placeholder="年齢" required>
+            <br>
+            <button type="submit">送信</button>
+        </center>
+    </form>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/png, image/jpeg">
+        <button type="submit">submit</button>
     </form>
     <a href="/search">だ　で探す</a>
-  </body>
+</body>
+
 </html>

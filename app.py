@@ -51,7 +51,9 @@ class FLASKDB(db.Model):
     ID = db.Column(Integer, primary_key=True)
     YOURNAME = db.Column(String(32))
     AGE = db.Column(Integer)
-    my_blob = db.Column(BLOB)
+    #my_blob = db.Column(BLOB)
+
+
 # DBの作成
 db.create_all()
     
@@ -62,12 +64,12 @@ def bokinbox():
     if request.method == 'POST':
         yourname = request.form['yourname']
         age = request.form['age']
-        flask = FLASKDB(YOURNAME=yourname, AGE=age,my_blob=pack('H', 365))
+        flask = FLASKDB(YOURNAME=yourname, AGE=age)#,my_blob=pack('H', 365)
         db.session.add(flask)
         db.session.commit()
         db.session.close()
         FLASKDB_infos = db.session.query(
-            FLASKDB.ID, FLASKDB.YOURNAME, FLASKDB.AGE,FLASKDB.my_blob).all()
+            FLASKDB.ID, FLASKDB.YOURNAME, FLASKDB.AGE).all() #,FLASKDB.my_blob
         return render_template('db_info.html', FLASKDB_infos=FLASKDB_infos)
 
 # 127.0.0.1/DBINFO:5000に遷移したときの処理

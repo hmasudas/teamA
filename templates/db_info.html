@@ -10,13 +10,11 @@
       <tr>
         <th bgcolor="#80ffff">名前</th>
         <th bgcolor="#80ffff">年齢</th>
-        <th>画像</th>
       </tr>
       {% for FLASKDB_info in FLASKDB_infos %}
       <tr>
         <td>{{FLASKDB_info[1]}}</td>
         <td>{{FLASKDB_info[2]}}歳</td>
-        <td>{{FLASKDB_info[3]}}</td>
       </tr>
       {% endfor %}
     </table>
