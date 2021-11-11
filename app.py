@@ -2,6 +2,7 @@ from oseti import oseti
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import *
+import cv2
 #スコアの取得
 def getScore(list):
 
