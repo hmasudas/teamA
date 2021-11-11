@@ -51,6 +51,7 @@ class FLASKDB(db.Model):
     YOURNAME = db.Column(String(32))
     AGE = db.Column(Integer)
     #my_blob = db.Column(BLOB)
+    #
 
 
 # DBの作成
