@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <title>DB情報</title>
+  </head>
+  <html>
+  <body>
+    <p>送信ありがとう</p>
+    <table border="1" width="80%" height="150">
+      <tr>
+        <th bgcolor="#80ffff">名前</th>
+        <th bgcolor="#80ffff">年齢</th>
+      </tr>
+      {% for n in name %}
+      <tr>
+        <td>{{n}}</td>
+        <td>{{name}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
