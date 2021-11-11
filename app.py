@@ -2,8 +2,15 @@ from oseti import oseti
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import *
-import cv2
-import numpy as np
+from struct import *
+import sqlalchemy.engine
+from sqlalchemy import event
+@event.listens_for(sqlalchemy.engine.Engine, "connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA foreign_keys = ON")
+    cursor.close()
+
 #スコアの取得
 def getScore(list):
 
@@ -46,14 +53,42 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask.sqlite'  # DBへのパ�
 db = SQLAlchemy(app)
 
 # SQLiteのDBテーブル情報
-class FLASKDB(db.Model):
-    __tablename__ = 'flask_table'
+class Member(db.Model):
+    __tablename__ = 'member'
 
-    ID = db.Column(Integer, primary_key=True)
-    YOURNAME = db.Column(String(32))
-    AGE = db.Column(Integer)
-    #my_blob = db.Column(BLOB)
+    user_id = db.Column(Integer, primary_key=True)
+    user_name = db.Column(VARCHAR(16),nullable=False)
+    mail_address = db.Column(VARCHAR(100),nullable=False)
+    password = db.Column(VARCHAR(256),nullable=False)
+    prefectures_id = db.Column(VARCHAR(2),nullable=False)
 
+class Image(db.Model):
+    __tablename__ = 'image'
+
+    image_id = db.Column(Integer, primary_key=True)
+    image_binary = db.Column(VARCHAR(50),nullable=False)
+
+class post(db.model):
+    __tablename__ = 'post'
+
+    post_id = db.Column(Integer, primary_key=True)
+    user_id = db.Column(INTEGER,db.ForeignKey('member.user_id'),nullable=False)
+    post_text = db.Column(VARCHAR(256),nullable=False)
+    image_id = db.Column(Integer,db.foreignkey('image.image_id'))
+    post_date = db.Column(DATE,nullable=False)
+
+class taglist(db.model):
+    __tablename__ = 'taglist'
+
+    tag_id = db.Column(INTEGER,primary_key=True)
+    tag_name = db.Column(VARCHAR,nullable=False)
+
+class tagmanage(db.model):
+    __tablename__ = 'tagmanage'
+
+    tag_manage_id = db.Column(INTEGER,primary_key=True)
+    tag_name = db.Column(INTEGER,db.Foreignkey('taglist.tag_id'),nullable=False)
+    post_id = db.Column(INTEGER,db.Foreignkey('post.post_id'),nullable=False)
 
 # DBの作成
 db.create_all()
@@ -65,18 +100,18 @@ def bokinbox():
     if request.method == 'POST':
         yourname = request.form['yourname']
         age = request.form['age']
-        flask = FLASKDB(YOURNAME=yourname, AGE=age)#,my_blob=pack('H', 365)
+        flask = Member(YOURNAME=yourname, AGE=age)#,my_blob=pack('H', 365)
         db.session.add(flask)
         db.session.commit()
         db.session.close()
-        FLASKDB_infos = db.session.query(
-            FLASKDB.ID, FLASKDB.YOURNAME, FLASKDB.AGE).all() #,FLASKDB.my_blob
-        return render_template('db_info.html', FLASKDB_infos=FLASKDB_infos)
+        Member_infos = db.session.query(
+            Member.ID, Member.YOURNAME, Member.AGE).all() #,Member.my_blob
+        return render_template('db_info.html', Member_infos=Member_infos)
 
 # 127.0.0.1/DBINFO:5000に遷移したときの処理
 @app.route('/search', methods=['GET'])
 def search():
-        user = db.session.query(FLASKDB.YOURNAME).filter(FLASKDB.AGE == 20).all()
+        user = db.session.query(Member.YOURNAME).filter(Member.AGE == 20).all()
 
         return render_template('search.html', user=user)
 
@@ -121,11 +156,3 @@ def index2():
 def ranking():
         return render_template('ranking.html')
 
-@app.route('/upload', methods=['POST'])
-def upload():
-    if request.files['image']:
-
-        return render_template('image_test.html')
-
-if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=5000, debug=True)
