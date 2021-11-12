@@ -1,5 +1,8 @@
 from oseti import oseti
 from flask import Flask, render_template, url_for, request, redirect
+
+# coding: UTF-8
+
 #スコアの取得
 def getScore(list):
 
