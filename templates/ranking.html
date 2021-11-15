@@ -1,12 +1,12 @@
 {% extends "ranking_layout.html" %}
 
 {% block body %}
-<div class="row mt-3" id="top-menu">
+<div class="row mt-3 menu-all" id="top-menu">
   <div class="col-4">
       <p class="menu-active sub-menu" id="syukan">週間ランキング</p>
   </div>
   <div class="col-4">
-      <p class="menu-inactive sub-menu" id="kennai"">県内ランキング</p>
+      <p class="menu-inactive sub-menu" id="kennai">県内ランキング</p>
   </div>
   <div class="col-4">
       <p class="menu-inactive sub-menu" id="tag">タグ別ランキング</p>
@@ -159,9 +159,16 @@
 
 <div class="sub-container" id="sub-container-tag" style="display: none;">
 
-  <select>
-    <option>hello</option>
-  </select>
+  <div class="sel sel--black-panther center">
+    <select name="select-profession" id="select-profession">
+      <option value="" disabled>Profession</option>
+      <option value="hacker">Hacker</option>
+      <option value="gamer">Gamer</option>
+      <option value="developer">Developer</option>
+      <option value="programmer">Programmer</option>
+      <option value="designer">Designer</option>
+    </select>
+  </div>
   <section class="ranking-wrap row ranking-top mt-3">
     <div class="col-2 ranking-left">
       <div class="left-wrap">
