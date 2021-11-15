@@ -11,23 +11,23 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
     cursor.execute("PRAGMA foreign_keys = ON")
     cursor.close()
     
-#スコアの取得
+#get score
 def getScore(list):
 
   positive = 0
   negative = 0
 
-  #リストないの感情を計算
+  #no list pation calc.
   for i in list:
     positive += i["positive"]
     negative += i["negative"]
 
-  #スコアの計算
+  #score calc.
   score = -1
   if positive+negative > 0:
     score = positive/(positive+negative)
 
-  #判定
+  #judge
   result = ""
   if score == -1:
     result = "判定できません"
@@ -44,15 +44,15 @@ def getAnalyzer(txt):
 
 app = Flask(__name__)
 
-# Flaskの立ち上げ
+# Flask
 app.config['SECRET_KEY'] = 'secret key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask.sqlite'  # DBへのパス
 
-# SQLAlchemyでデータベース定義
+# SQLAlchemy
 
 db = SQLAlchemy(app)
 
-# SQLiteのDBテーブル情報
+# SQLite DBinformation
 class Member(db.Model):
     __tablename__ = 'member'
 
@@ -90,25 +90,25 @@ class tagmanage(db.Model):
     tag_name = db.Column(INTEGER,db.ForeignKey('taglist.tag_id'),nullable=False)
     post_id = db.Column(INTEGER,db.ForeignKey('post.post_id'),nullable=False)
 
-# DBの作成
+# create DB 
 db.create_all()
     
 
-# 127.0.0.1/DBINFO:5000に遷移したときの処理
+# 127.0.0.1/DBINFO:5000 moved method
 @app.route('/DBINFO', methods=['POST', 'GET'])
 def bokinbox():
     if request.method == 'POST':
         yourname = request.form['yourname']
         age = request.form['age']
-        flask = Member(YOURNAME=yourname, AGE=age)#,my_blob=pack('H', 365)
+        flask = Member(YOURNAME=yourname, AGE=age)
         db.session.add(flask)
         db.session.commit()
         db.session.close()
         Member_infos = db.session.query(
-            Member.ID, Member.YOURNAME, Member.AGE).all() #,Member.my_blob
+            Member.ID, Member.YOURNAME, Member.AGE).all()
         return render_template('db_info.html', Member_infos=Member_infos)
 
-# 127.0.0.1/DBINFO:5000に遷移したときの処理
+# 127.0.0.1/DBINFO:5000 moved method
 @app.route('/search', methods=['GET'])
 def search():
         user = db.session.query(Member.YOURNAME).filter(Member.AGE == 20).all()
@@ -122,18 +122,18 @@ def index():
 @app.route('/post', methods=['GET', 'POST'])
 def post():
 
-    # GETメソッドの場合
+    # if GET
     if request.method == 'GET':
-        # トップページにリダイレクト
+        # top redirect
         return redirect(url_for('index'))
 
-    # POSTメソッドの場合
+    # if POST
     else:
-        # リクエストフォームから「名前」を取得
+        # get text
         txt = request.form['txt']
         name = getScore(getAnalyzer(txt))
 
-        # nameとtitleをindex.htmlに変数展開
+        # name title index.html open
         return render_template('index.html',name=name)
 
 @app.route('/login', methods=['GET'])
