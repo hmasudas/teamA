@@ -10,7 +10,7 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
     cursor = dbapi_connection.cursor()
     cursor.execute("PRAGMA foreign_keys = ON")
     cursor.close()
-
+    
 #スコアの取得
 def getScore(list):
 
@@ -114,7 +114,6 @@ def search():
         user = db.session.query(Member.YOURNAME).filter(Member.AGE == 20).all()
 
         return render_template('search.html', user=user)
-
 
 @app.route('/', methods=['GET'])
 def index():
